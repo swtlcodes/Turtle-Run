@@ -4,6 +4,7 @@ import main.java.window.gameWindow;
 import main.java.window.homeWindow;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class main {
 
@@ -20,8 +21,8 @@ public class main {
         gameWindow = gameWindowPar;
 
     }
-    public static void main(String[] args) {
-           //setHomeWindow(new homeWindow(window));
-            setGameWindow(new gameWindow(window));
+    public static void main(String[] args) throws IOException {
+            setHomeWindow(new homeWindow(window));
+
     }
 }

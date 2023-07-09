@@ -12,7 +12,7 @@ public class player{
     public player(JFrame window) {
         this.window = window;
 
-        URL player_normal_idle = player.class.getResource("//assets//images//player//player_normal_idle.png");
+        URL player_normal_idle = player.class.getResource("/assets/images/player/player_normal_idle.png");
         System.out.println(player_normal_idle);
 
     }
