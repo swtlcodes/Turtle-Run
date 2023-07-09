@@ -10,7 +10,7 @@ import main.java.main;
 import java.io.IOException;
 import java.net.URL;
 
-public class homeWindow extends main{
+public class homeWindow extends JComponent{
     JFrame window;
 
      URL iconImageURL;
@@ -18,13 +18,13 @@ public class homeWindow extends main{
 
     public homeWindow(JFrame window) throws IOException {
         try {
-            URL iconImageURL = homeWindow.class.getResource("/assets/images/window/gameIcon.ico");
+            URL iconImageURL = homeWindow.class.getResource("/assets/images/player/player_normal_idle.png");
             System.out.println(iconImageURL);
-            ImageIcon iconImage = new ImageIcon(iconImageURL);
+            Image iconImage = ImageIO.read(iconImageURL);
 
             this.window = window;
             window = new JFrame("Turtle Run");
-            window.setIconImage(iconImage.getImage());
+            window.setIconImage(iconImage);
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.setVisible(true);
             window.setSize(new Dimension(100, 100));

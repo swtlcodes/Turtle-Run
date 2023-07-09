@@ -4,8 +4,9 @@ import main.java.main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
-public class gameWindow extends main {
+public class gameWindow extends JComponent{
     JFrame window;
 
     //TODO URL iconImageURL = this.class.
@@ -21,7 +22,15 @@ public class gameWindow extends main {
         window.setVisible(true);
         window.setSize(new Dimension(100, 100));
 
-        new player(window);
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        try {
+            new player(window,g,this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -22,7 +22,10 @@ public class main {
 
     }
     public static void main(String[] args) throws IOException {
-            setHomeWindow(new homeWindow(window));
-
+//            setHomeWindow(new homeWindow(window));
+            setGameWindow(new gameWindow(window));
+            while(true){
+                gameWindow.repaint();
+            }
     }
 }
