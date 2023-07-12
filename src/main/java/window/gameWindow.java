@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class gameWindow extends JComponent{
     JFrame window;
+    public static player player = new player();
 
     //TODO URL iconImageURL = this.class.
     //TODO Image iconImage;
@@ -18,9 +19,13 @@ public class gameWindow extends JComponent{
 
         //TODO window.setIconImage();
         window = new JFrame("Turtle Run");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.add(this);
+        window.setUndecorated(true);
+        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.addKeyListener(player);
         window.setVisible(true);
-        window.setSize(new Dimension(100, 100));
+
+
 
     }
 
@@ -28,7 +33,7 @@ public class gameWindow extends JComponent{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
-            new player(window,g,this);
+            player.playerRepaint(window,g,this);
         } catch (IOException e) {
             e.printStackTrace();
         }
