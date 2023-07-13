@@ -7,13 +7,14 @@ import java.awt.*;
 import java.io.IOException;
 
 public class gameWindow extends JComponent{
-    JFrame window;
-    public static player player = new player();
+    public static JFrame window;
+    int thing;
+    public static player player;
 
     //TODO URL iconImageURL = this.class.
     //TODO Image iconImage;
 
-    public gameWindow(JFrame window) {
+    public gameWindow(JFrame window) throws IOException {
 
         this.window = window;
 
@@ -22,20 +23,24 @@ public class gameWindow extends JComponent{
         window.add(this);
         window.setUndecorated(true);
         window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        window.addKeyListener(player);
         window.setVisible(true);
 
-
-
+        player = new player(window,this);
+        window.addKeyListener(player);
+        window.add(player);
+        player.repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        try {
-            player.playerRepaint(window,g,this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        super.paintComponent(g);
+//        try {
+//            player.playerRepaint(g);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(thing);
+//        thing++;
     }
 }

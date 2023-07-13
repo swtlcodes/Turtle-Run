@@ -10,15 +10,16 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URL;
 
-public class player implements KeyListener {
+public class player extends JComponent implements KeyListener {
     JFrame window;
-    Graphics graphics;
     JComponent jComponent;
 
     public static int x;
     public static int y;
     public static int velocity = 10;
 
+    long startTime;
+    long elapsedTime;
 
     public static URL player_normal_idle_URL = player.class.getResource("/assets/images/player/player_normal_idle.png");
     public static URL player_normal_walk_1_URL = player.class.getResource("/assets/images/player/player_normal_walk_1.png");
@@ -46,11 +47,8 @@ public class player implements KeyListener {
 
     public static Image playerImage;
 
-
-    public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
-
+    public player(JFrame window, JComponent jComponent) throws IOException {
         this.window = window;
-        this.graphics = graphics;
         this.jComponent = jComponent;
 
         Image player_normal_idle = ImageIO.read(player_normal_idle_URL);
@@ -64,11 +62,32 @@ public class player implements KeyListener {
         Image player_shoot_walk_2 = ImageIO.read(player_shoot_walk_2_URL);
         Image player_shoot_walk_3 = ImageIO.read(player_shoot_walk_3_URL);
         Image player_shoot_walk_4 = ImageIO.read(player_shoot_walk_4_URL);
+    }
+    public void playerRepaint(Graphics graphics) throws IOException {
 
-        playerImage = player_normal_walk_1;
-        graphics.drawImage(playerImage,x,y,jComponent);
+
+
+
+
+
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(startTime == 0){
+            startTime = System.currentTimeMillis();
+            playerImage = player_normal_walk_1;
+        }
+        if(System.currentTimeMillis() == startTime + 125){
+            playerImage = player_normal_walk_1;
+        }
+
+        g.drawImage(playerImage,x,y,jComponent);
+        repaint();
+
+
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -77,7 +96,6 @@ public class player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(x+" "+velocity);
         if(e.getKeyChar() == 'a'){
             x = x-velocity;
             velocity+=2;
@@ -87,6 +105,7 @@ public class player implements KeyListener {
             velocity+=2;
         }
         window.repaint();
+
 }
 
     @Override
