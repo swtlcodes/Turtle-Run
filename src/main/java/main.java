@@ -4,16 +4,17 @@ package main.java;
 import main.java.window.gameWindow;
 import main.java.window.homeWindow;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class main {
+public class main{
 
     // Variables
     public static JFrame window = new JFrame();
     public static homeWindow homeWindow;
     public static gameWindow gameWindow;
     public static JComponent mainWindow;
-
     // Creates a new homeWindow and erases anything previously on the screen.
     public static void setHomeWindow(homeWindow homeWindowPar){
         homeWindow = homeWindowPar;
@@ -25,8 +26,9 @@ public class main {
         mainWindow = gameWindow;
 
     }
+
     // This is what runs when you click the play button or run the file.
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
             // Creates the home window.
             //setHomeWindow(new homeWindow(window));
@@ -35,5 +37,9 @@ public class main {
                 mainWindow.repaint();
             }
 
+
+
     }
+
+
 }

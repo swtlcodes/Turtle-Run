@@ -20,8 +20,9 @@ public class gameWindow extends JComponent{
         //TODO window.setIconImage();
         window = new JFrame("Turtle Run");
         window.add(this);
-        window.setUndecorated(true);
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.setSize(new Dimension(937,4));
+        //window.setUndecorated(true);
+        //window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         window.addKeyListener(player);
         window.setVisible(true);
 

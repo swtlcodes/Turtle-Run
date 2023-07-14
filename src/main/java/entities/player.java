@@ -14,11 +14,13 @@ public class player implements KeyListener {
     JFrame window;
     Graphics graphics;
     JComponent jComponent;
+    public static long animationStartTime;
+    public static boolean canShootCooldown = false;
+    public static boolean shoot;
 
     public static int x;
     public static int y;
     public static int velocity = 10;
-
 
     public static URL player_normal_idle_URL = player.class.getResource("/assets/images/player/player_normal_idle.png");
     public static URL player_normal_walk_1_URL = player.class.getResource("/assets/images/player/player_normal_walk_1.png");
@@ -48,7 +50,6 @@ public class player implements KeyListener {
 
 
     public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
-
         this.window = window;
         this.graphics = graphics;
         this.jComponent = jComponent;
@@ -65,19 +66,58 @@ public class player implements KeyListener {
         Image player_shoot_walk_3 = ImageIO.read(player_shoot_walk_3_URL);
         Image player_shoot_walk_4 = ImageIO.read(player_shoot_walk_4_URL);
 
-        playerImage = player_normal_walk_1;
+        if(animationStartTime == 0){
+            animationStartTime = System.currentTimeMillis();
+            if(shoot){
+                playerImage = player_normal_walk_1;
+                shoot = false;
+            } else{
+                playerImage = player_shoot_walk_1;
+
+            }
+
+        }
+        if(System.currentTimeMillis() - animationStartTime >= 125 && System.currentTimeMillis() - animationStartTime < 250){
+            if(shoot){
+                playerImage = player_normal_walk_2;
+                shoot = false;
+            } else{
+                playerImage = player_shoot_walk_2;
+
+            }
+        }
+        if(System.currentTimeMillis() - animationStartTime >= 250  && System.currentTimeMillis() - animationStartTime < 375){
+
+            if(shoot){
+                playerImage = player_normal_walk_3;
+                shoot = false;
+            } else{
+                playerImage = player_shoot_walk_3;
+
+            }
+        }
+        if(System.currentTimeMillis() - animationStartTime >= 375  && System.currentTimeMillis() - animationStartTime < 500){
+            if(shoot){
+                playerImage = player_normal_walk_4;
+                shoot = false;
+            } else{
+                playerImage = player_shoot_walk_4;
+
+            }
+            animationStartTime = 0;
+        }
+
         graphics.drawImage(playerImage,x,y,jComponent);
     }
 
 
     @Override
     public void keyTyped(KeyEvent e) {
-        }
+    }
 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(x+" "+velocity);
         if(e.getKeyChar() == 'a'){
             x = x-velocity;
             velocity+=2;
@@ -86,12 +126,19 @@ public class player implements KeyListener {
             x = x+velocity;
             velocity+=2;
         }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && !canShootCooldown){
+            shoot = true;
+        }
         window.repaint();
-}
+    }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
         velocity = 10;
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            canShootCooldown = false;
+        }
         window.repaint();
     }
 }
