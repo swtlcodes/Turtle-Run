@@ -1,15 +1,14 @@
 package main.java.window;
-import main.java.entities.player;
-import main.java.main;
+import main.java.entities.player.player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
 public class gameWindow extends JComponent{
-    JFrame window;
+    public static JFrame window;
     public static player player = new player();
-
+    public static Dimension windowDimension = new Dimension(1440,900);
     //TODO URL iconImageURL = this.class.
     //TODO Image iconImage;
 
@@ -18,15 +17,12 @@ public class gameWindow extends JComponent{
         this.window = window;
 
         //TODO window.setIconImage();
-        window = new JFrame("Turtle Run");
+        window.setSize(windowDimension);
         window.add(this);
-        window.setSize(new Dimension(937,4));
-        //window.setUndecorated(true);
-        //window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        System.out.println(window.getSize());
         window.addKeyListener(player);
         window.setVisible(true);
-
-
 
     }
 
@@ -35,6 +31,7 @@ public class gameWindow extends JComponent{
         super.paintComponent(g);
         try {
             player.playerRepaint(window,g,this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

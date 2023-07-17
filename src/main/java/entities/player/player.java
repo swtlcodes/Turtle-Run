@@ -1,6 +1,8 @@
-package main.java.entities;
+package main.java.entities.player;
 
 
+
+import main.java.entities.projectiles.playerProjectile;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -50,26 +52,28 @@ public class player implements KeyListener {
 
 
     public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
+
         this.window = window;
         this.graphics = graphics;
         this.jComponent = jComponent;
 
-        Image player_normal_idle = ImageIO.read(player_normal_idle_URL);
-        Image player_normal_walk_1 = ImageIO.read(player_normal_walk_1_URL);
-        Image player_normal_walk_2 = ImageIO.read(player_normal_walk_2_URL);
-        Image player_normal_walk_3 = ImageIO.read(player_normal_walk_3_URL);
-        Image player_normal_walk_4 = ImageIO.read(player_normal_walk_4_URL);
+        player_normal_idle = ImageIO.read(player_normal_idle_URL);
+        player_normal_walk_1 = ImageIO.read(player_normal_walk_1_URL);
+        player_normal_walk_2 = ImageIO.read(player_normal_walk_2_URL);
+        player_normal_walk_3 = ImageIO.read(player_normal_walk_3_URL);
+        player_normal_walk_4 = ImageIO.read(player_normal_walk_4_URL);
 
-        Image player_shoot_idle = ImageIO.read(player_shoot_idle_URL);
-        Image player_shoot_walk_1 = ImageIO.read(player_shoot_walk_1_URL);
-        Image player_shoot_walk_2 = ImageIO.read(player_shoot_walk_2_URL);
-        Image player_shoot_walk_3 = ImageIO.read(player_shoot_walk_3_URL);
-        Image player_shoot_walk_4 = ImageIO.read(player_shoot_walk_4_URL);
+        player_shoot_idle = ImageIO.read(player_shoot_idle_URL);
+        player_shoot_walk_1 = ImageIO.read(player_shoot_walk_1_URL);
+        player_shoot_walk_2 = ImageIO.read(player_shoot_walk_2_URL);
+        player_shoot_walk_3 = ImageIO.read(player_shoot_walk_3_URL);
+        player_shoot_walk_4 = ImageIO.read(player_shoot_walk_4_URL);
 
         if(animationStartTime == 0){
             animationStartTime = System.currentTimeMillis();
             if(shoot){
                 playerImage = player_normal_walk_1;
+                new playerProjectile(graphics,jComponent,this,window);
                 shoot = false;
             } else{
                 playerImage = player_shoot_walk_1;
@@ -80,6 +84,7 @@ public class player implements KeyListener {
         if(System.currentTimeMillis() - animationStartTime >= 125 && System.currentTimeMillis() - animationStartTime < 250){
             if(shoot){
                 playerImage = player_normal_walk_2;
+                new playerProjectile(graphics,jComponent,this,window);
                 shoot = false;
             } else{
                 playerImage = player_shoot_walk_2;
@@ -90,6 +95,7 @@ public class player implements KeyListener {
 
             if(shoot){
                 playerImage = player_normal_walk_3;
+                new playerProjectile(graphics,jComponent,this,window);
                 shoot = false;
             } else{
                 playerImage = player_shoot_walk_3;
@@ -99,6 +105,7 @@ public class player implements KeyListener {
         if(System.currentTimeMillis() - animationStartTime >= 375  && System.currentTimeMillis() - animationStartTime < 500){
             if(shoot){
                 playerImage = player_normal_walk_4;
+                new playerProjectile(graphics,jComponent,this,window);
                 shoot = false;
             } else{
                 playerImage = player_shoot_walk_4;
@@ -106,25 +113,37 @@ public class player implements KeyListener {
             }
             animationStartTime = 0;
         }
-
+        y = window.getHeight()-128;
+        if(x > window.getWidth() - 80){
+            x = window.getWidth() - 80;
+        }
         graphics.drawImage(playerImage,x,y,jComponent);
     }
 
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyChar() == 'a'){
+
+        if(e.getKeyChar() == 'a' ){
             x = x-velocity;
             velocity+=2;
+            if(x<0){
+               x = 0;
+                velocity = 10;
+            }
         }
         if(e.getKeyChar() == 'd'){
             x = x+velocity;
             velocity+=2;
+            velocity+=2;
+            if(x>window.getWidth()-80){
+                x = window.getWidth()-80;
+                velocity = 10;
+            }
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE && !canShootCooldown){
             shoot = true;
@@ -142,3 +161,5 @@ public class player implements KeyListener {
         window.repaint();
     }
 }
+
+
