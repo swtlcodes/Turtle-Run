@@ -33,6 +33,7 @@ public class main{
             // Creates the home window.
             //setHomeWindow(new homeWindow(window));
             setGameWindow(new gameWindow(window));
+
             while(true){
                 mainWindow.repaint();
             }
