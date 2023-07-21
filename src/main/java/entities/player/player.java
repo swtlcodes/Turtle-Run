@@ -17,99 +17,169 @@ public class player implements KeyListener {
     Graphics graphics;
     JComponent jComponent;
     public static long animationStartTime;
-    public static boolean canShootCooldown = false;
-    public static boolean shoot;
+    public static long moveCooldown;
+    public static boolean canShoot = true;
+
+    public static boolean gun = true;
+    public static boolean shoot = false;
+    public static boolean stab = false;
+    public static boolean sword = false;
 
     public static int x;
     public static int y;
     public static int velocity = 10;
 
-    public static URL player_normal_idle_URL = player.class.getResource("/assets/images/player/player_normal_idle.png");
-    public static URL player_normal_walk_1_URL = player.class.getResource("/assets/images/player/player_normal_walk_1.png");
-    public static URL player_normal_walk_2_URL = player.class.getResource("/assets/images/player/player_normal_walk_2.png");
-    public static URL player_normal_walk_3_URL = player.class.getResource("/assets/images/player/player_normal_walk_3.png");
-    public static URL player_normal_walk_4_URL = player.class.getResource("/assets/images/player/player_normal_walk_4.png");
+    public static URL player_gun_idle_1_URL = player.class.getResource("/assets/images/player/gun/player_gun_idle_1.png");
+    public static URL player_gun_idle_2_URL = player.class.getResource("/assets/images/player/gun/player_gun_idle_2.png");
+    public static URL player_gun_walk_1_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_1.png");
+    public static URL player_gun_walk_2_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_2.png");
+    public static URL player_gun_walk_3_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_3.png");
+    public static URL player_gun_walk_4_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_4.png");
 
-    public static URL player_shoot_idle_URL = player.class.getResource("/assets/images/player/player_shoot_idle.png");
-    public static URL player_shoot_walk_1_URL = player.class.getResource("/assets/images/player/player_shoot_walk_1.png");
-    public static URL player_shoot_walk_2_URL = player.class.getResource("/assets/images/player/player_shoot_walk_2.png");
-    public static URL player_shoot_walk_3_URL = player.class.getResource("/assets/images/player/player_shoot_walk_3.png");
-    public static URL player_shoot_walk_4_URL = player.class.getResource("/assets/images/player/player_shoot_walk_4.png");
+    public static URL player_shoot_idle_1_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_idle_1.png");
+    public static URL player_shoot_idle_2_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_idle_2.png");
+    public static URL player_shoot_walk_1_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_1.png");
+    public static URL player_shoot_walk_2_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_2.png");
+    public static URL player_shoot_walk_3_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_3.png");
+    public static URL player_shoot_walk_4_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_4.png");
 
-    public static Image player_normal_idle;
-    public static Image player_normal_walk_1;
-    public static Image player_normal_walk_2;
-    public static Image player_normal_walk_3;
-    public static Image player_normal_walk_4;
+    public static URL player_stab_idle_1_URL = player.class.getResource("/assets/images/player/stab/player_stab_idle_1.png");
+    public static URL player_stab_idle_2_URL = player.class.getResource("/assets/images/player/stab/player_stab_idle_2.png");
+    public static URL player_stab_walk_1_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_1.png");
+    public static URL player_stab_walk_2_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_2.png");
+    public static URL player_stab_walk_3_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_3.png");
+    public static URL player_stab_walk_4_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_4.png");
 
-    public static Image player_shoot_idle;
+    public static URL player_sword_idle_1_URL = player.class.getResource("/assets/images/player/sword/player_sword_idle_1.png");
+    public static URL player_sword_idle_2_URL = player.class.getResource("/assets/images/player/sword/player_sword_idle_2.png");
+    public static URL player_sword_walk_1_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_1.png");
+    public static URL player_sword_walk_2_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_2.png");
+    public static URL player_sword_walk_3_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_3.png");
+    public static URL player_sword_walk_4_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_4.png");
+
+    public static Image player_gun_idle_1;
+    public static Image player_gun_idle_2;
+    public static Image player_gun_walk_1;
+    public static Image player_gun_walk_2;
+    public static Image player_gun_walk_3;
+    public static Image player_gun_walk_4;
+
+    public static Image player_shoot_idle_1;
+    public static Image player_shoot_idle_2;
     public static Image player_shoot_walk_1;
     public static Image player_shoot_walk_2;
     public static Image player_shoot_walk_3;
     public static Image player_shoot_walk_4;
 
+    public static Image player_stab_idle_1;
+    public static Image player_stab_idle_2;
+    public static Image player_stab_walk_1;
+    public static Image player_stab_walk_2;
+    public static Image player_stab_walk_3;
+    public static Image player_stab_walk_4;
+
+    public static Image player_sword_idle_1;
+    public static Image player_sword_idle_2;
+    public static Image player_sword_walk_1;
+    public static Image player_sword_walk_2;
+    public static Image player_sword_walk_3;
+    public static Image player_sword_walk_4;
     public static Image playerImage;
 
+    public player() throws IOException {
 
+        player_gun_idle_1 = ImageIO.read(player_gun_idle_1_URL);
+        player_gun_idle_1 = ImageIO.read(player_gun_idle_2_URL);
+        player_gun_walk_1 = ImageIO.read(player_gun_walk_1_URL);
+        player_gun_walk_2 = ImageIO.read(player_gun_walk_2_URL);
+        player_gun_walk_3 = ImageIO.read(player_gun_walk_3_URL);
+        player_gun_walk_4 = ImageIO.read(player_gun_walk_4_URL);
+
+        player_shoot_idle_1 = ImageIO.read(player_shoot_idle_1_URL);
+        player_shoot_idle_1 = ImageIO.read(player_shoot_idle_2_URL);
+        player_shoot_walk_1 = ImageIO.read(player_shoot_walk_1_URL);
+        player_shoot_walk_2 = ImageIO.read(player_shoot_walk_2_URL);
+        player_shoot_walk_3 = ImageIO.read(player_shoot_walk_3_URL);
+        player_shoot_walk_4 = ImageIO.read(player_shoot_walk_4_URL);
+
+        player_stab_idle_1 = ImageIO.read(player_stab_idle_1_URL);
+        player_stab_idle_1 = ImageIO.read(player_stab_idle_2_URL);
+        player_stab_walk_1 = ImageIO.read(player_stab_walk_1_URL);
+        player_stab_walk_2 = ImageIO.read(player_stab_walk_2_URL);
+        player_stab_walk_3 = ImageIO.read(player_stab_walk_3_URL);
+        player_stab_walk_4 = ImageIO.read(player_stab_walk_4_URL);
+
+        player_sword_idle_1 = ImageIO.read(player_sword_idle_1_URL);
+        player_sword_idle_1 = ImageIO.read(player_sword_idle_2_URL);
+        player_sword_walk_1 = ImageIO.read(player_sword_walk_1_URL);
+        player_sword_walk_2 = ImageIO.read(player_sword_walk_2_URL);
+        player_sword_walk_3 = ImageIO.read(player_sword_walk_3_URL);
+        player_sword_walk_4 = ImageIO.read(player_sword_walk_4_URL);
+    }
     public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
 
         this.window = window;
         this.graphics = graphics;
         this.jComponent = jComponent;
 
-        player_normal_idle = ImageIO.read(player_normal_idle_URL);
-        player_normal_walk_1 = ImageIO.read(player_normal_walk_1_URL);
-        player_normal_walk_2 = ImageIO.read(player_normal_walk_2_URL);
-        player_normal_walk_3 = ImageIO.read(player_normal_walk_3_URL);
-        player_normal_walk_4 = ImageIO.read(player_normal_walk_4_URL);
 
-        player_shoot_idle = ImageIO.read(player_shoot_idle_URL);
-        player_shoot_walk_1 = ImageIO.read(player_shoot_walk_1_URL);
-        player_shoot_walk_2 = ImageIO.read(player_shoot_walk_2_URL);
-        player_shoot_walk_3 = ImageIO.read(player_shoot_walk_3_URL);
-        player_shoot_walk_4 = ImageIO.read(player_shoot_walk_4_URL);
-
-        if(animationStartTime == 0){
+          if(animationStartTime == 0){
             animationStartTime = System.currentTimeMillis();
+            if(gun){
+                playerImage = player_gun_walk_1;
+            }
             if(shoot){
-                playerImage = player_normal_walk_1;
-                new playerProjectile(graphics,jComponent,this,window);
-                shoot = false;
-            } else{
                 playerImage = player_shoot_walk_1;
-
+            }
+            if(stab){
+                playerImage = player_stab_walk_1;
+            }
+            if(sword){
+                playerImage = player_sword_walk_1;
             }
 
         }
         if(System.currentTimeMillis() - animationStartTime >= 125 && System.currentTimeMillis() - animationStartTime < 250){
+            if(gun){
+                playerImage = player_gun_walk_2;
+            }
             if(shoot){
-                playerImage = player_normal_walk_2;
-                new playerProjectile(graphics,jComponent,this,window);
-                shoot = false;
-            } else{
                 playerImage = player_shoot_walk_2;
-
+            }
+            if(stab){
+                playerImage = player_stab_walk_2;
+            }
+            if(sword){
+                playerImage = player_sword_walk_2;
             }
         }
         if(System.currentTimeMillis() - animationStartTime >= 250  && System.currentTimeMillis() - animationStartTime < 375){
-
+            if(gun){
+                playerImage = player_gun_walk_3;
+            }
             if(shoot){
-                playerImage = player_normal_walk_3;
-                new playerProjectile(graphics,jComponent,this,window);
-                shoot = false;
-            } else{
                 playerImage = player_shoot_walk_3;
-
+            }
+            if(stab){
+                playerImage = player_stab_walk_3;
+            }
+            if(sword){
+                playerImage = player_sword_walk_3;
             }
         }
         if(System.currentTimeMillis() - animationStartTime >= 375  && System.currentTimeMillis() - animationStartTime < 500){
+            if(gun){
+                playerImage = player_gun_walk_4;
+            }
             if(shoot){
-                playerImage = player_normal_walk_4;
-                new playerProjectile(graphics,jComponent,this,window);
-                shoot = false;
-            } else{
                 playerImage = player_shoot_walk_4;
 
+            }
+            if(sword){
+                playerImage = player_sword_walk_4;
+            }
+            if(stab){
+                playerImage = player_stab_walk_4;
             }
             animationStartTime = 0;
         }
@@ -118,6 +188,7 @@ public class player implements KeyListener {
             x = window.getWidth() - 80;
         }
         graphics.drawImage(playerImage,x,y,jComponent);
+
     }
 
 
@@ -145,18 +216,70 @@ public class player implements KeyListener {
                 velocity = 10;
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE && !canShootCooldown){
-            shoot = true;
+        if(e.getKeyChar() == 'w'){
+            gun = true;
+            sword = false;
+        }
+        if(e.getKeyChar() == 's'){
+            sword = true;
+            gun = false;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if(moveCooldown == 0 || canShoot){
+                if(gun){
+                    gun = false;
+                    shoot = true;
+                }
+                if(sword){
+                    sword = false;
+                    stab = true;
+                }
+                moveCooldown = System.currentTimeMillis();
+                canShoot = false;
+                System.out.println(1);
+            }
+            if(System.currentTimeMillis()-moveCooldown >= 125){
+                if(shoot){
+                    gun = true;
+                    shoot = false;
+                }
+                if(stab){
+                    sword = true;
+                    stab = false;
+                }
+                System.out.println(2);
+            }
+            if(System.currentTimeMillis() - moveCooldown >= 500){
+                if(gun){
+                    gun = false;
+                    shoot = true;
+                }
+                if(sword){
+                    sword = false;
+                    stab = true;
+                }
+                moveCooldown = 0;
+                System.out.println(3);
+            }
+
         }
         window.repaint();
+
     }
 
 
     @Override
     public void keyReleased(KeyEvent e) {
         velocity = 10;
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            canShootCooldown = false;
+        canShoot = true;
+        System.out.println(4);
+        if(shoot){
+            shoot = false;
+            gun = true;
+        }
+        if(stab){
+            stab = false;
+            sword = true;
         }
         window.repaint();
     }
