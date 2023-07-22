@@ -46,6 +46,13 @@ public class gameWindow extends JComponent{
         super.paintComponent(g);
         try {
             player.playerRepaint(window,g,this);
+//            for (int i = 0; i < player.ammunition.size() ; i++) {
+//                if(player.ammunition.get(i).fired){
+//                    player.ammunition.get(i).y -=1;
+//                    System.out.println(player.ammunition.get(i).y);
+//                    g.drawImage(player.ammunition.get(i).projectile,player.ammunition.get(i).x,player.ammunition.get(i).y,this);
+//                }
+//            }
             g.drawImage(weapon_selector,window.getWidth()-128,window.getHeight()/2-64,this);
 
         } catch (IOException e) {

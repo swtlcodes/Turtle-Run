@@ -2,8 +2,6 @@ package main.java.entities.player;
 
 
 
-import main.java.entities.projectiles.playerProjectile;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class player implements KeyListener {
     JFrame window;
@@ -24,7 +23,7 @@ public class player implements KeyListener {
     public static boolean shoot = false;
     public static boolean stab = false;
     public static boolean sword = false;
-
+    public static ArrayList<playerBullet> ammunition = new ArrayList<playerBullet>();
     public static int x;
     public static int y;
     public static int velocity = 10;
@@ -87,6 +86,12 @@ public class player implements KeyListener {
     public static Image playerImage;
 
     public player() throws IOException {
+
+        for(int i = 0; i<20; i++){
+            ammunition.add(new playerBullet(this));
+        }
+
+
 
         player_gun_idle_1 = ImageIO.read(player_gun_idle_1_URL);
         player_gun_idle_1 = ImageIO.read(player_gun_idle_2_URL);
@@ -191,6 +196,15 @@ public class player implements KeyListener {
 
     }
 
+    public static void fireBullet(){
+      for(int i = 0; i < ammunition.size(); i++){
+          if(!ammunition.get(i).fired){
+              ammunition.get(i).fired = true;
+              break;
+          }
+
+      }
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -229,6 +243,7 @@ public class player implements KeyListener {
                 if(gun){
                     gun = false;
                     shoot = true;
+                    fireBullet();
                 }
                 if(sword){
                     sword = false;
@@ -242,6 +257,7 @@ public class player implements KeyListener {
                 if(shoot){
                     gun = true;
                     shoot = false;
+
                 }
                 if(stab){
                     sword = true;
@@ -253,6 +269,7 @@ public class player implements KeyListener {
                 if(gun){
                     gun = false;
                     shoot = true;
+                    fireBullet();
                 }
                 if(sword){
                     sword = false;
