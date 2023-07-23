@@ -1,27 +1,25 @@
 package main.java;
 
 // Imports code that helps make windows and read images.
-import main.java.window.gameWindow;
-import main.java.window.homeWindow;
+import main.java.window.GameWindow;
+import main.java.window.HomeWindow;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class main{
 
     // Variables
     public static JFrame window = new JFrame();
-    public static homeWindow homeWindow;
-    public static gameWindow gameWindow;
+    public static HomeWindow homeWindow;
+    public static GameWindow gameWindow;
     public static JComponent mainWindow;
-    // Creates a new homeWindow and erases anything previously on the screen.
-    public static void setHomeWindow(homeWindow homeWindowPar){
+    // Creates a new HomeWindow and erases anything previously on the screen.
+    public static void setHomeWindow(HomeWindow homeWindowPar){
         homeWindow = homeWindowPar;
         mainWindow = homeWindow;
     }
-    // Creates a new gameWindow and erases anything previously on the screen.
-    public static void setGameWindow(gameWindow gameWindowPar){
+    // Creates a new GameWindow and erases anything previously on the screen.
+    public static void setGameWindow(GameWindow gameWindowPar){
         gameWindow = gameWindowPar;
         mainWindow = gameWindow;
 
@@ -31,8 +29,8 @@ public class main{
     public static void main(String[] args) throws IOException, InterruptedException {
 
             // Creates the home window.
-            //setHomeWindow(new homeWindow(window));
-            setGameWindow(new gameWindow(window));
+            //setHomeWindow(new HomeWindow(window));
+            setGameWindow(new GameWindow(window));
 
             while(true){
                 mainWindow.repaint();

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class player implements KeyListener {
+public class Player implements KeyListener {
     JFrame window;
     Graphics graphics;
     JComponent jComponent;
@@ -23,38 +23,38 @@ public class player implements KeyListener {
     public static boolean shoot = false;
     public static boolean stab = false;
     public static boolean sword = false;
-    public static ArrayList<playerBullet> ammunition = new ArrayList<playerBullet>();
+    public static ArrayList<PlayerBullet> ammunition = new ArrayList<>();
     public static int x;
     public static int y;
     public static int velocity = 10;
 
-    public static URL player_gun_idle_1_URL = player.class.getResource("/assets/images/player/gun/player_gun_idle_1.png");
-    public static URL player_gun_idle_2_URL = player.class.getResource("/assets/images/player/gun/player_gun_idle_2.png");
-    public static URL player_gun_walk_1_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_1.png");
-    public static URL player_gun_walk_2_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_2.png");
-    public static URL player_gun_walk_3_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_3.png");
-    public static URL player_gun_walk_4_URL = player.class.getResource("/assets/images/player/gun/player_gun_walk_4.png");
+    public static URL player_gun_idle_1_URL = Player.class.getResource("/assets/images/player/gun/player_gun_idle_1.png");
+    public static URL player_gun_idle_2_URL = Player.class.getResource("/assets/images/player/gun/player_gun_idle_2.png");
+    public static URL player_gun_walk_1_URL = Player.class.getResource("/assets/images/player/gun/player_gun_walk_1.png");
+    public static URL player_gun_walk_2_URL = Player.class.getResource("/assets/images/player/gun/player_gun_walk_2.png");
+    public static URL player_gun_walk_3_URL = Player.class.getResource("/assets/images/player/gun/player_gun_walk_3.png");
+    public static URL player_gun_walk_4_URL = Player.class.getResource("/assets/images/player/gun/player_gun_walk_4.png");
 
-    public static URL player_shoot_idle_1_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_idle_1.png");
-    public static URL player_shoot_idle_2_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_idle_2.png");
-    public static URL player_shoot_walk_1_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_1.png");
-    public static URL player_shoot_walk_2_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_2.png");
-    public static URL player_shoot_walk_3_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_3.png");
-    public static URL player_shoot_walk_4_URL = player.class.getResource("/assets/images/player/shoot/player_shoot_walk_4.png");
+    public static URL player_shoot_idle_1_URL = Player.class.getResource("/assets/images/player/shoot/player_shoot_idle_1.png");
+    public static URL player_shoot_idle_2_URL = Player.class.getResource("/assets/images/player/shoot/player_shoot_idle_2.png");
+    public static URL player_shoot_walk_1_URL = Player.class.getResource("/assets/images/player/shoot/player_shoot_walk_1.png");
+    public static URL player_shoot_walk_2_URL = Player.class.getResource("/assets/images/player/shoot/player_shoot_walk_2.png");
+    public static URL player_shoot_walk_3_URL = Player.class.getResource("/assets/images/player/shoot/player_shoot_walk_3.png");
+    public static URL player_shoot_walk_4_URL = Player.class.getResource("/assets/images/player/shoot/player_shoot_walk_4.png");
 
-    public static URL player_stab_idle_1_URL = player.class.getResource("/assets/images/player/stab/player_stab_idle_1.png");
-    public static URL player_stab_idle_2_URL = player.class.getResource("/assets/images/player/stab/player_stab_idle_2.png");
-    public static URL player_stab_walk_1_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_1.png");
-    public static URL player_stab_walk_2_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_2.png");
-    public static URL player_stab_walk_3_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_3.png");
-    public static URL player_stab_walk_4_URL = player.class.getResource("/assets/images/player/stab/player_stab_walk_4.png");
+    public static URL player_stab_idle_1_URL = Player.class.getResource("/assets/images/player/stab/player_stab_idle_1.png");
+    public static URL player_stab_idle_2_URL = Player.class.getResource("/assets/images/player/stab/player_stab_idle_2.png");
+    public static URL player_stab_walk_1_URL = Player.class.getResource("/assets/images/player/stab/player_stab_walk_1.png");
+    public static URL player_stab_walk_2_URL = Player.class.getResource("/assets/images/player/stab/player_stab_walk_2.png");
+    public static URL player_stab_walk_3_URL = Player.class.getResource("/assets/images/player/stab/player_stab_walk_3.png");
+    public static URL player_stab_walk_4_URL = Player.class.getResource("/assets/images/player/stab/player_stab_walk_4.png");
 
-    public static URL player_sword_idle_1_URL = player.class.getResource("/assets/images/player/sword/player_sword_idle_1.png");
-    public static URL player_sword_idle_2_URL = player.class.getResource("/assets/images/player/sword/player_sword_idle_2.png");
-    public static URL player_sword_walk_1_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_1.png");
-    public static URL player_sword_walk_2_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_2.png");
-    public static URL player_sword_walk_3_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_3.png");
-    public static URL player_sword_walk_4_URL = player.class.getResource("/assets/images/player/sword/player_sword_walk_4.png");
+    public static URL player_sword_idle_1_URL = Player.class.getResource("/assets/images/player/sword/player_sword_idle_1.png");
+    public static URL player_sword_idle_2_URL = Player.class.getResource("/assets/images/player/sword/player_sword_idle_2.png");
+    public static URL player_sword_walk_1_URL = Player.class.getResource("/assets/images/player/sword/player_sword_walk_1.png");
+    public static URL player_sword_walk_2_URL = Player.class.getResource("/assets/images/player/sword/player_sword_walk_2.png");
+    public static URL player_sword_walk_3_URL = Player.class.getResource("/assets/images/player/sword/player_sword_walk_3.png");
+    public static URL player_sword_walk_4_URL = Player.class.getResource("/assets/images/player/sword/player_sword_walk_4.png");
 
     public static Image player_gun_idle_1;
     public static Image player_gun_idle_2;
@@ -85,10 +85,10 @@ public class player implements KeyListener {
     public static Image player_sword_walk_4;
     public static Image playerImage;
 
-    public player() throws IOException {
+    public Player() throws IOException {
 
         for(int i = 0; i<20; i++){
-            ammunition.add(new playerBullet(this));
+            ammunition.add(new PlayerBullet(this));
         }
 
 
@@ -301,5 +301,3 @@ public class player implements KeyListener {
         window.repaint();
     }
 }
-
-

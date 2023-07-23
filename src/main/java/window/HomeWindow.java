@@ -6,16 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-public class homeWindow extends JComponent{
+public class HomeWindow extends JComponent{
 
     // Window Variable.
     JFrame window;
 
     // Whenever the class is called, this code will execute.
-    public homeWindow(JFrame window){
+    public HomeWindow(JFrame window){
         try {
             // Creates a variable which stores the icon image of the game.
-            URL iconImageURL = homeWindow.class.getResource("/assets/images/player/player_normal_idle.png");
+            URL iconImageURL = HomeWindow.class.getResource("/assets/images/player/player_normal_idle.png");
             System.out.println(iconImageURL);
             Image iconImage = ImageIO.read(iconImageURL);
 
