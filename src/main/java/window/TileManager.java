@@ -14,7 +14,7 @@ public class TileManager {
 
     // List containing all the tiles.
     ArrayList<Tile> tilesList = new ArrayList<>();
-
+    public int i2;
     // Window variable.
     GameWindow gameWindow;
 
@@ -45,7 +45,6 @@ public class TileManager {
     Image sandTileImage;
     Image waterTileImage;
 
-    Image[] tileImages = {grassTile1Image, grassPathTileImage, spikeTileImage, mudTileImage, sandTileImage, waterTileImage};
 
     public final class Tile {
 
@@ -86,8 +85,24 @@ public class TileManager {
         int i2 = 0;
         for (int i = 0; i < 64; i++) {
             for (int i1 = 0; i1 < gameWindow.height / 64 + 1; i1++) {
-//                System.out.println((int) (Math.random() * tileImages.length - 1 + 1));
-                tilesList.add(new Tile(x, y, i2, grassTile1Image));
+              Image tileImage = null;
+              switch((int) (Math.random() * 5 - 1 + 1)) {
+                  case 0:
+                      tileImage = grassTile1Image;
+                      break;
+                  case 1:
+                      tileImage = grassTile2Image;
+                      break;
+                  case 2:
+                      tileImage = grassTile3Image;
+                      break;
+                  case 3:
+                      tileImage = grassTile4Image;
+                      break;
+                  case 4:
+                      tileImage = grassPathTileImage;
+              }
+                tilesList.add(new Tile(x, y, i2, tileImage));
                 i2++;
                 y += 64;
             }
@@ -100,11 +115,30 @@ public class TileManager {
 
         // Paints all the tiles.
         for (int i = 0; i < tilesList.size(); i++) {
-            g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
-            tilesList.get(i).y += 10;
-            if (tilesList.get(i).y > gameWindow.height) {
-                tilesList.get(i).y = -64;
+            if(tilesList.get(i).y == 0){
+                i2++;
+                Image tileImage = null;
+                switch((int) (Math.random() * 5 - 1 + 1)) {
+                    case 0:
+                        tileImage = grassTile1Image;
+                        break;
+                    case 1:
+                        tileImage = grassTile2Image;
+                        break;
+                    case 2:
+                        tileImage = grassTile3Image;
+                        break;
+                    case 3:
+                        tileImage = grassTile4Image;
+                        break;
+                    case 4:
+                        tileImage = grassPathTileImage;
+                }
+                tilesList.add(new Tile(tilesList.get(i).x,-64,i,tileImage));
             }
+            g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
+            tilesList.get(i).y += 16;
+
         }
     }
 }

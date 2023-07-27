@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
 import java.util.ArrayList;
 
 public class Player implements KeyListener {
@@ -129,7 +130,6 @@ public class Player implements KeyListener {
         player_sword_walk_3 = ImageIO.read(player_sword_walk_3_URL);
         player_sword_walk_4 = ImageIO.read(player_sword_walk_4_URL);
     }
-
     public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
         // Variable stuff.
         this.window = window;
@@ -137,9 +137,11 @@ public class Player implements KeyListener {
         this.jComponent = jComponent;
 
         // The Animation
-          if(animationStartTime == 0){
+          if(animationStartTime == 0 ){
             animationStartTime = System.currentTimeMillis();
-            if(gun){
+              System.out.println(1);
+
+              if(gun){
                 playerImage = player_gun_walk_1;
             }
             if(shoot){
@@ -154,6 +156,7 @@ public class Player implements KeyListener {
 
         }
         if(System.currentTimeMillis() - animationStartTime >= 125 && System.currentTimeMillis() - animationStartTime < 250){
+            System.out.println(2);
             if(gun){
                 playerImage = player_gun_walk_2;
             }
@@ -168,6 +171,8 @@ public class Player implements KeyListener {
             }
         }
         if(System.currentTimeMillis() - animationStartTime >= 250  && System.currentTimeMillis() - animationStartTime < 375){
+            System.out.println(3);
+
             if(gun){
                 playerImage = player_gun_walk_3;
             }
@@ -182,6 +187,7 @@ public class Player implements KeyListener {
             }
         }
         if(System.currentTimeMillis() - animationStartTime >= 375  && System.currentTimeMillis() - animationStartTime < 500){
+            System.out.println(4);
             if(gun){
                 playerImage = player_gun_walk_4;
             }
@@ -196,6 +202,14 @@ public class Player implements KeyListener {
                 playerImage = player_stab_walk_4;
             }
             animationStartTime = 0;
+        }
+        if(System.currentTimeMillis() - animationStartTime > 500){
+            System.out.println(5);
+            animationStartTime = 0;
+        }
+        else{
+            System.out.print("ERROR");
+            System.out.println(System.currentTimeMillis() - animationStartTime);
         }
 
         // Makes sure the player cannot exit the window and that its y is always the same.
@@ -223,13 +237,19 @@ public class Player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+        // Stops the game when the escape or e key is pressed.
+        if(e.getKeyChar() == 'e' || e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.exit(0);
+        }
+
         // Moves the player left.
         if(e.getKeyChar() == 'a' ){
             x = x-velocity;
             velocity+=2;
             if(x<0){
                x = 0;
-                velocity = 10;
+                velocity = 16;
             }
         }
 
@@ -240,7 +260,7 @@ public class Player implements KeyListener {
             velocity+=2;
             if(x>window.getWidth()-80){
                 x = window.getWidth()-80;
-                velocity = 10;
+                velocity = 16;
             }
         }
 
