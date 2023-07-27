@@ -1,7 +1,6 @@
 package main.java.entities.player;
 
-
-
+// Imported classes
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,22 +11,30 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Player implements KeyListener {
+
+    // Variables for the window and painting.
     JFrame window;
     Graphics graphics;
     JComponent jComponent;
+
+    // Timers
     public static long animationStartTime;
     public static long moveCooldown;
-    public static boolean canShoot = true;
 
+    // Weapon related variables.
+    public static boolean canShoot = true;
     public static boolean gun = true;
     public static boolean shoot = false;
     public static boolean stab = false;
     public static boolean sword = false;
     public static ArrayList<PlayerBullet> ammunition = new ArrayList<>();
+
+    // Variables needed for movement.
     public static int x;
     public static int y;
     public static int velocity = 10;
 
+    // Paths for sprites.
     public static URL player_gun_idle_1_URL = Player.class.getResource("/assets/images/player/gun/player_gun_idle_1.png");
     public static URL player_gun_idle_2_URL = Player.class.getResource("/assets/images/player/gun/player_gun_idle_2.png");
     public static URL player_gun_walk_1_URL = Player.class.getResource("/assets/images/player/gun/player_gun_walk_1.png");
@@ -56,6 +63,7 @@ public class Player implements KeyListener {
     public static URL player_sword_walk_3_URL = Player.class.getResource("/assets/images/player/sword/player_sword_walk_3.png");
     public static URL player_sword_walk_4_URL = Player.class.getResource("/assets/images/player/sword/player_sword_walk_4.png");
 
+    // Sprite Images.
     public static Image player_gun_idle_1;
     public static Image player_gun_idle_2;
     public static Image player_gun_walk_1;
@@ -87,12 +95,12 @@ public class Player implements KeyListener {
 
     public Player() throws IOException {
 
+        // Makes Ammunition.
         for(int i = 0; i<20; i++){
             ammunition.add(new PlayerBullet(this));
         }
 
-
-
+        // Reads files and stores them in the image variables.
         player_gun_idle_1 = ImageIO.read(player_gun_idle_1_URL);
         player_gun_idle_1 = ImageIO.read(player_gun_idle_2_URL);
         player_gun_walk_1 = ImageIO.read(player_gun_walk_1_URL);
@@ -121,13 +129,14 @@ public class Player implements KeyListener {
         player_sword_walk_3 = ImageIO.read(player_sword_walk_3_URL);
         player_sword_walk_4 = ImageIO.read(player_sword_walk_4_URL);
     }
-    public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
 
+    public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
+        // Variable stuff.
         this.window = window;
         this.graphics = graphics;
         this.jComponent = jComponent;
 
-
+        // The Animation
           if(animationStartTime == 0){
             animationStartTime = System.currentTimeMillis();
             if(gun){
@@ -188,31 +197,33 @@ public class Player implements KeyListener {
             }
             animationStartTime = 0;
         }
+
+        // Makes sure the player cannot exit the window and that its y is always the same.
         y = window.getHeight()-128;
         if(x > window.getWidth() - 80){
             x = window.getWidth() - 80;
         }
-        graphics.drawImage(playerImage,x,y,jComponent);
 
+        // Draws the player.
+        graphics.drawImage(playerImage,x,y,jComponent);
     }
 
+    // Shoots a bullet.
     public static void fireBullet(){
       for(int i = 0; i < ammunition.size(); i++){
           if(!ammunition.get(i).fired){
               ammunition.get(i).fired = true;
               break;
           }
-
       }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {}
 
-
     @Override
     public void keyPressed(KeyEvent e) {
-
+        // Moves the player left.
         if(e.getKeyChar() == 'a' ){
             x = x-velocity;
             velocity+=2;
@@ -221,6 +232,8 @@ public class Player implements KeyListener {
                 velocity = 10;
             }
         }
+
+        // Moves the player right.
         if(e.getKeyChar() == 'd'){
             x = x+velocity;
             velocity+=2;
@@ -230,14 +243,20 @@ public class Player implements KeyListener {
                 velocity = 10;
             }
         }
+
+        // Makes the player change its weapon to a gun.
         if(e.getKeyChar() == 'w'){
             gun = true;
             sword = false;
         }
+
+        // Makes the player change its weapon to a sword.
         if(e.getKeyChar() == 's'){
             sword = true;
             gun = false;
         }
+
+        // Shoots a bullet.
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             if(moveCooldown == 0 || canShoot){
                 if(gun){
@@ -256,7 +275,6 @@ public class Player implements KeyListener {
                 if(shoot){
                     gun = true;
                     shoot = false;
-
                 }
                 if(stab){
                     sword = true;
@@ -278,14 +296,16 @@ public class Player implements KeyListener {
 
         }
         window.repaint();
-
     }
 
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        // Makes sure that the velocity is not too high.
         velocity = 10;
 
+        // Makes sure that you cannot constantly shoot your gun.
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             canShoot = true;
             if(shoot){
@@ -297,7 +317,6 @@ public class Player implements KeyListener {
                 sword = true;
             }
         }
-
         window.repaint();
     }
 }
