@@ -251,7 +251,6 @@ public class Player implements KeyListener {
                 }
                 moveCooldown = System.currentTimeMillis();
                 canShoot = false;
-                System.out.println(1);
             }
             if(System.currentTimeMillis()-moveCooldown >= 125){
                 if(shoot){
@@ -263,7 +262,6 @@ public class Player implements KeyListener {
                     sword = true;
                     stab = false;
                 }
-                System.out.println(2);
             }
             if(System.currentTimeMillis() - moveCooldown >= 500){
                 if(gun){
@@ -276,7 +274,6 @@ public class Player implements KeyListener {
                     stab = true;
                 }
                 moveCooldown = 0;
-                System.out.println(3);
             }
 
         }
@@ -288,16 +285,19 @@ public class Player implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         velocity = 10;
-        canShoot = true;
-        System.out.println(4);
-        if(shoot){
-            shoot = false;
-            gun = true;
+
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            canShoot = true;
+            if(shoot){
+                shoot = false;
+                gun = true;
+            }
+            if(stab){
+                stab = false;
+                sword = true;
+            }
         }
-        if(stab){
-            stab = false;
-            sword = true;
-        }
+
         window.repaint();
     }
 }
