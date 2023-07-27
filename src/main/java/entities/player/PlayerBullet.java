@@ -30,6 +30,6 @@ public class PlayerBullet {
         y = player.y;
 
         // Sets the image variable to the path.
-        projectile = ImageIO.read(projectileURL);
+       // projectile = ImageIO.read(projectileURL);
     }
 }
