@@ -82,6 +82,7 @@ public class TileManager  {
                 tilesList.add(new Tile(x,y,i2,grassTile1Image));
                 i2++;
                 y +=64;
+                System.out.printf("'hi");
             }
             y = 0;
             x += 64;
