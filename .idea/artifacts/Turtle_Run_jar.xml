@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Turtle Run:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Turtle_Run_jar</output-path>
-    <root id="archive" name="Turtle Run.jar">
-      <element id="module-output" name="Turtle Run" />
-    </root>
-  </artifact>
-</component>
