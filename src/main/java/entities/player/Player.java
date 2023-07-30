@@ -139,8 +139,6 @@ public class Player implements KeyListener {
         // The Animation
           if(animationStartTime == 0 ){
             animationStartTime = System.currentTimeMillis();
-              System.out.println(1);
-
               if(gun){
                 playerImage = player_gun_walk_1;
             }
@@ -156,7 +154,6 @@ public class Player implements KeyListener {
 
         }
         if(System.currentTimeMillis() - animationStartTime >= 125 && System.currentTimeMillis() - animationStartTime < 250){
-            System.out.println(2);
             if(gun){
                 playerImage = player_gun_walk_2;
             }
@@ -171,8 +168,6 @@ public class Player implements KeyListener {
             }
         }
         if(System.currentTimeMillis() - animationStartTime >= 250  && System.currentTimeMillis() - animationStartTime < 375){
-            System.out.println(3);
-
             if(gun){
                 playerImage = player_gun_walk_3;
             }
@@ -187,13 +182,11 @@ public class Player implements KeyListener {
             }
         }
         if(System.currentTimeMillis() - animationStartTime >= 375  && System.currentTimeMillis() - animationStartTime < 500){
-            System.out.println(4);
             if(gun){
                 playerImage = player_gun_walk_4;
             }
             if(shoot){
                 playerImage = player_shoot_walk_4;
-
             }
             if(sword){
                 playerImage = player_sword_walk_4;
@@ -204,12 +197,7 @@ public class Player implements KeyListener {
             animationStartTime = 0;
         }
         if(System.currentTimeMillis() - animationStartTime > 500){
-            System.out.println(5);
             animationStartTime = 0;
-        }
-        else{
-            System.out.print("ERROR");
-            System.out.println(System.currentTimeMillis() - animationStartTime);
         }
 
         // Makes sure the player cannot exit the window and that its y is always the same.

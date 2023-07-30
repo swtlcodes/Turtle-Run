@@ -56,12 +56,17 @@ public class TileManager {
         public int tileNumber;
         public Image tileType;
 
+
         // Sets all the values.
         public Tile(int x, int y, int tileNumber, Image tileType) {
             this.x = x;
             this.y = y;
             this.tileNumber = tileNumber;
             this.tileType = tileType;
+
+        }
+        protected void finalize() throws Throwable {
+            System.out.println("RIP MOI");
         }
     }
 
@@ -83,7 +88,7 @@ public class TileManager {
         int x = 0;
         int y = 0;
         int i2 = 0;
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < 32; i++) {
             for (int i1 = 0; i1 < gameWindow.height / 64 + 1; i1++) {
               Image tileImage = null;
               switch((int) (Math.random() * 5 - 1 + 1)) {
@@ -111,7 +116,7 @@ public class TileManager {
         }
     }
 
-    public void tileRepaint(Graphics g, JComponent jComponent) {
+    public void tileRepaint(Graphics g, JComponent jComponent) throws Throwable {
 
         // Paints all the tiles.
         for (int i = 0; i < tilesList.size(); i++) {
@@ -136,8 +141,15 @@ public class TileManager {
                 }
                 tilesList.add(new Tile(tilesList.get(i).x,-64,i,tileImage));
             }
-            g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
-            tilesList.get(i).y += 16;
+            if(tilesList.get(i).y >= gameWindow.height/2){
+                tilesList.remove(i);
+                System.out.println("garbage collection");
+            }
+
+                g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
+                tilesList.get(i).y += 16;
+
+
 
         }
     }

@@ -83,6 +83,8 @@ public class GameWindow extends JComponent{
 
         // Error management.
         catch (IOException e) {}
-        catch (NullPointerException e) {}
+        catch (NullPointerException e) {} catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 }
