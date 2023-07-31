@@ -1,6 +1,7 @@
 package main.java.window;
 
 // Imported classes.
+import main.java.entities.enemies.minions.Blob;
 import main.java.entities.player.Player;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,14 +12,15 @@ import java.net.URL;
 public class GameWindow extends JComponent{
 
     // Stores the window, TileManager, and player as a variable.
-    public static JFrame window;
-    public static Player player;
-    public static TileManager tileManager;
+    public JFrame window;
+    public Player player;
+    public TileManager tileManager;
+    public Blob blob;
 
 
     // Stores the dimensions of the window.
-    public static int height;
-    public static int width;
+    public int height;
+    public int width;
 
     // Unused Code
     URL weapon_selector_URL = GameWindow.class.getResource("/assets/images/window/weapon_selector.png");
@@ -49,6 +51,7 @@ public class GameWindow extends JComponent{
         height = window.getHeight();
         width = window.getWidth();
         tileManager = new TileManager(this);
+        blob = new Blob(this,0,0,128,0);
     }
 
     @Override
@@ -62,6 +65,7 @@ public class GameWindow extends JComponent{
             // Repaints the player and tiles.
             tileManager.tileRepaint(g,this);
             player.playerRepaint(window,g,this);
+            blob.enemyRepaint(g,this);
 
             // Temporary Code
             URL thing = GameWindow.class.getResource("/assets/images/window/Gun Sprite0.png");
@@ -72,10 +76,11 @@ public class GameWindow extends JComponent{
             g.drawImage(thingy1,32,0,this);
 
             // Draws the bullet (unused)
-            for (int i = 0; i < Player.ammunition.size() ; i++) {
-                if(Player.ammunition.get(i).fired){
-                    Player.ammunition.get(i).y -=1;
-                    g.drawImage(Player.ammunition.get(i).projectile,Player.ammunition.get(i).x,Player.ammunition.get(i).y,this);
+            for (int i = 0; i < player.ammunition.size() ; i++) {
+                if(player.ammunition.get(i).fired){
+                    System.out.println("here");
+                    player.ammunition.get(i).y -=1;
+                    g.drawImage(player.ammunition.get(i).projectile,player.ammunition.get(i).x,player.ammunition.get(i).y,this);
                 }
             }
 

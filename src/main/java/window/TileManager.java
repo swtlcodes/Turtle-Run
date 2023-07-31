@@ -65,9 +65,7 @@ public class TileManager {
             this.tileType = tileType;
 
         }
-        protected void finalize() throws Throwable {
-            System.out.println("RIP MOI");
-        }
+
     }
 
     public TileManager(GameWindow gameWindow) throws IOException {
@@ -141,9 +139,8 @@ public class TileManager {
                 }
                 tilesList.add(new Tile(tilesList.get(i).x,-64,i,tileImage));
             }
-            if(tilesList.get(i).y >= gameWindow.height/2){
+            if(tilesList.get(i).y >= gameWindow.height){
                 tilesList.remove(i);
-                System.out.println("garbage collection");
             }
 
                 g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
