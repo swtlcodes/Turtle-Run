@@ -146,8 +146,6 @@ public class TileManager {
                 g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
                 tilesList.get(i).y += 16;
 
-
-
         }
     }
 }

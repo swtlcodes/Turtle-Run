@@ -7,25 +7,31 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Blob extends Enemy {
+    Animation thing;
     URL testUrl = Blob.class.getResource("/assets/images/enemies/minions/Blob.png");
     Image blobImage;
 
     public Blob(GameWindow gameWindow, int x, int y, int speed, int health) throws IOException {
         super(gameWindow, x, y, speed, health);
         blobImage = ImageIO.read(testUrl);
+        ArrayList<Image> timmy = new ArrayList<>();
+        timmy.add(gameWindow.player.player_gun_walk_1);
+        timmy.add(gameWindow.player.player_gun_walk_2);
+        timmy.add(gameWindow.player.player_gun_walk_3);
+        timmy.add(gameWindow.player.player_gun_walk_4);
+        thing = new Animation(timmy, 100);
     }
 
 
-   @Override
+    @Override
     public void enemyRepaint(Graphics g, JComponent jComponent) {
-        super.enemyRepaint(g, jComponent);
-
         chasePlayer();
-        g.drawImage(blobImage,x,y,jComponent);
+        enemyImage = thing.doAnimation();
+        g.drawImage(enemyImage, x, y, jComponent);
 
     }
 }

@@ -13,9 +13,9 @@ public abstract class Enemy {
     public int health;
 
     public GameWindow gameWindow;
-    ArrayList<Animation> animationList = new ArrayList<>();
+    public Image enemyImage;
 
-    public Enemy(GameWindow gameWindow, int x, int y, int speed,int health) {
+    public Enemy(GameWindow gameWindow, int x, int y, int speed, int health) {
         this.x = x;
         this.y = y;
         this.gameWindow = gameWindow;
@@ -24,7 +24,6 @@ public abstract class Enemy {
 
     public void chasePlayer() {
         if (gameWindow.player.x > x) {
-            System.out.println(1);
             x += speed;
         }
         if (gameWindow.player.x < x) {
@@ -37,25 +36,50 @@ public abstract class Enemy {
             y += speed;
         }
         if (gameWindow.player.y < y) {
-            y-=speed;
+            y -= speed;
         }
         if (gameWindow.player.y > y && gameWindow.player.y < y + 64) {
             x -= 0;
         }
     }
-    public void addAnimation(Animation animation){
-        animationList.add(animation);
+
+    public void enemyRepaint(Graphics g, JComponent jComponent) {
+    /*
+    Suggested code for a minion:
+
+        chasePlayer();
+        enemyImage = x.doAnimation();
+        g.drawImage(enemyImage, x, y, jComponent);
+
+     */
     }
 
-    public void enemyRepaint(Graphics g, JComponent jComponent){}
-
-    public class Animation{
+    public class Animation {
         public ArrayList<Image> animationSprites = new ArrayList<>();
         public double animationTime;
 
-        public Animation(ArrayList<Image> animationSprites, double animationTime){
+        long timer;
+
+        public Animation(ArrayList<Image> animationSprites, double animationTime) {
             this.animationTime = animationTime;
             this.animationSprites = animationSprites;
         }
+
+        public Image doAnimation() {
+            if (timer == 0) {
+                timer = System.currentTimeMillis();
+            }
+            if (System.currentTimeMillis() - timer > animationTime * (animationSprites.size())) {
+                timer = 0;
+            }
+            for (int i = 0; i < animationSprites.size(); i++) {
+                if (System.currentTimeMillis() - timer >= animationTime * (i) && System.currentTimeMillis() - timer < animationTime * (i + 1)) {
+                    return animationSprites.get(i);
+                }
+            }
+        return enemyImage;
+        }
     }
 }
+
+

@@ -51,7 +51,7 @@ public class GameWindow extends JComponent{
         height = window.getHeight();
         width = window.getWidth();
         tileManager = new TileManager(this);
-        blob = new Blob(this,0,0,128,0);
+        blob = new Blob(this,0,0,1,0);
     }
 
     @Override
