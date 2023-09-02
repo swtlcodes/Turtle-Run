@@ -18,6 +18,9 @@ public class TileManager {
     // Window variable.
     GameWindow gameWindow;
 
+    long startTime = System.currentTimeMillis();
+    long tileTime = System.currentTimeMillis();
+
     // Paths for images.
     URL grassTileURL1 = TileManager.class.getResource("/assets/images/window/tiles/grass/grass_tile_1.png");
 
@@ -86,25 +89,16 @@ public class TileManager {
         int x = 0;
         int y = 0;
         int i2 = 0;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < gameWindow.width / 64 + 1; i++) {
             for (int i1 = 0; i1 < gameWindow.height / 64 + 1; i1++) {
-              Image tileImage = null;
-              switch((int) (Math.random() * 5 - 1 + 1)) {
-                  case 0:
-                      tileImage = grassTile1Image;
-                      break;
-                  case 1:
-                      tileImage = grassTile2Image;
-                      break;
-                  case 2:
-                      tileImage = grassTile3Image;
-                      break;
-                  case 3:
-                      tileImage = grassTile4Image;
-                      break;
-                  case 4:
-                      tileImage = grassPathTileImage;
-              }
+              Image tileImage = switch ((int) (Math.random() * 5 - 1 + 1)) {
+                  case 0 -> grassTile1Image;
+                  case 1 -> grassTile2Image;
+                  case 2 -> grassTile3Image;
+                  case 3 -> grassTile4Image;
+                  case 4 -> grassPathTileImage;
+                  default -> null;
+              };
                 tilesList.add(new Tile(x, y, i2, tileImage));
                 i2++;
                 y += 64;
@@ -115,37 +109,42 @@ public class TileManager {
     }
 
     public void tileRepaint(Graphics g, JComponent jComponent) throws Throwable {
+        System.out.println(tileTime);
 
-        // Paints all the tiles.
-        for (int i = 0; i < tilesList.size(); i++) {
-            if(tilesList.get(i).y == 0){
-                i2++;
-                Image tileImage = null;
-                switch((int) (Math.random() * 5 - 1 + 1)) {
-                    case 0:
-                        tileImage = grassTile1Image;
-                        break;
-                    case 1:
-                        tileImage = grassTile2Image;
-                        break;
-                    case 2:
-                        tileImage = grassTile3Image;
-                        break;
-                    case 3:
-                        tileImage = grassTile4Image;
-                        break;
-                    case 4:
-                        tileImage = grassPathTileImage;
+            // Paints all the tiles.
+            for (int i = 0; i < tilesList.size(); i++) {
+                if (tilesList.get(i).y == 0) {
+                    i2++;
+                    Image tileImage = null;
+                    switch ((int) (Math.random() * 5 - 1 + 1)) {
+                        case 0:
+                            tileImage = grassTile1Image;
+                            break;
+                        case 1:
+                            tileImage = grassTile2Image;
+                            break;
+                        case 2:
+                            tileImage = grassTile3Image;
+                            break;
+                        case 3:
+                            tileImage = grassTile4Image;
+                            break;
+                        case 4:
+                            tileImage = grassPathTileImage;
+                    }
+
+                    tilesList.add(new Tile(tilesList.get(i).x, -64, i, tileImage));
                 }
-                tilesList.add(new Tile(tilesList.get(i).x,-64,i,tileImage));
-            }
-            if(tilesList.get(i).y >= gameWindow.height){
-                tilesList.remove(i);
-            }
+                if (tilesList.get(i).y >= gameWindow.height) {
+                    tilesList.remove(i);
+                }
 
                 g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
                 tilesList.get(i).y += 16;
 
-        }
+            }
+
+        tileTime =  System.currentTimeMillis() - startTime;
+
     }
 }

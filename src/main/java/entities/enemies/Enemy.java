@@ -10,10 +10,13 @@ public abstract class Enemy {
     public int x;
     public int y;
     public int speed;
+    public String direction;
     public int health;
 
     public GameWindow gameWindow;
     public Image enemyImage;
+    //gameWindow.player.x >= x && gameWindow.player.x <= x + 64 && gameWindow.player.y >= y && gameWindow.player.y <=y + 64;
+
 
     public Enemy(GameWindow gameWindow, int x, int y, int speed, int health) {
         this.x = x;
@@ -22,24 +25,24 @@ public abstract class Enemy {
         this.speed = speed;
     }
 
-    public void chasePlayer() {
+    public void chasePlayerX() {
         if (gameWindow.player.x > x) {
             x += speed;
+            direction = "right";
         }
         if (gameWindow.player.x < x) {
             x -= speed;
+            direction = "left";
         }
-        if (gameWindow.player.x > x && gameWindow.player.x < x + 64) {
-            x -= 0;
-        }
+    }
+    public void chasePlayerY(){
         if (gameWindow.player.y > y) {
             y += speed;
+            direction = "down";
         }
         if (gameWindow.player.y < y) {
             y -= speed;
-        }
-        if (gameWindow.player.y > y && gameWindow.player.y < y + 64) {
-            x -= 0;
+            direction = "up";
         }
     }
 
@@ -78,6 +81,14 @@ public abstract class Enemy {
                 }
             }
         return enemyImage;
+        }
+    }
+    public class Attack{
+        public class Melee{
+
+        }
+        public class Ranged{
+
         }
     }
 }
