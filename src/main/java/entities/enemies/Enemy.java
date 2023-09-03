@@ -83,14 +83,36 @@ public abstract class Enemy {
         return enemyImage;
         }
     }
-    public class Attack{
-        public class Melee{
 
+        public class Melee{
+            int damage;
+            long cooldown;
+
+            long cooldownTimer;
+
+            public Melee(int damage, long cooldown){
+                this.damage = damage;
+                this.cooldown = cooldown;
+
+            }
+            public void Attack(){
+                if(System.currentTimeMillis()-cooldownTimer >= cooldown){
+                    gameWindow.player.health -= damage;
+                    cooldownTimer = System.currentTimeMillis();
+                }
+            }
+            public void Attack(Animation animation){
+                if(System.currentTimeMillis()-cooldownTimer >= cooldown){
+                    gameWindow.player.health -= damage;
+                    cooldownTimer = System.currentTimeMillis();
+                    animation.doAnimation();
+                }
+            }
         }
         public class Ranged{
 
         }
-    }
+
 }
 
 

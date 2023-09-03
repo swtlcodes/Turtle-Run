@@ -75,6 +75,10 @@ public class GameWindow extends JComponent{
             g.drawImage(thingy,0,0,this);
             g.drawImage(thingy1,32,0,this);
 
+            if(player.health <= 0){
+                System.exit(0);
+            }
+
             // Draws the bullet (unused)
             for (int i = 0; i < player.ammunition.size() ; i++) {
                 if(player.ammunition.get(i).fired){

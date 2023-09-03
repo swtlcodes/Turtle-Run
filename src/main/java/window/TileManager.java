@@ -14,6 +14,8 @@ public class TileManager {
 
     // List containing all the tiles.
     ArrayList<Tile> tilesList = new ArrayList<>();
+
+    public int speed = 16;
     public int i2;
     // Window variable.
     GameWindow gameWindow;
@@ -109,7 +111,6 @@ public class TileManager {
     }
 
     public void tileRepaint(Graphics g, JComponent jComponent) throws Throwable {
-        System.out.println(tileTime);
 
             // Paints all the tiles.
             for (int i = 0; i < tilesList.size(); i++) {
@@ -140,7 +141,8 @@ public class TileManager {
                 }
 
                 g.drawImage(tilesList.get(i).tileType, tilesList.get(i).x, tilesList.get(i).y, jComponent);
-                tilesList.get(i).y += 16;
+                speed = 8;
+                tilesList.get(i).y +=  speed;
 
             }
 

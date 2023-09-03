@@ -25,7 +25,7 @@ public class Blob extends Enemy {
     Image blobImage4;
     Image blobImage5;
 
-
+    Melee attack;
 
     public Blob(GameWindow gameWindow, int x, int y, int speed, int health) throws IOException {
         super(gameWindow, x, y, speed, health);
@@ -43,6 +43,8 @@ public class Blob extends Enemy {
         timmy.add(blobImage4);
         timmy.add(blobImage5);
         thing = new Animation(timmy, 1000);
+
+        attack = new Melee(20,1000);
     }
 
 
@@ -52,7 +54,7 @@ public class Blob extends Enemy {
         chasePlayerY();
         enemyImage = thing.doAnimation();
         g.drawImage(enemyImage, x, y, jComponent);
-
-        System.out.println(direction);
+        attack.Attack();
+        System.out.println(gameWindow.player.health);
     }
 }

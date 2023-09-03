@@ -40,6 +40,7 @@ public class Player implements KeyListener {
     public  int x;
     public  int y;
     public  int velocity = 10;
+    public int health = 100;
 
 
     // Paths for sprites.
@@ -240,7 +241,6 @@ public class Player implements KeyListener {
         for(int i = 0; i < ammunition.size(); i++){
             if(!ammunition.get(i).fired){
                 ammunition.get(i).fired = true;
-                System.out.println("i am here.");
                 break;
             }
         }
