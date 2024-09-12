@@ -1,8 +1,12 @@
 package main.java.window;
 
 // Imported classes.
-import main.java.entities.enemies.minions.Blob;
+import main.java.entities.enemies.minions.Kayu;
 import main.java.entities.player.Player;
+import main.java.window.components.SettingsButton;
+import main.java.window.manager.EnemyManager;
+import main.java.window.manager.TileManager;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,16 +19,26 @@ public class GameWindow extends JComponent{
     public JFrame window;
     public Player player;
     public TileManager tileManager;
-    public Blob blob;
-
+    public EnemyManager enemyManager;
+    public Kayu blob;
 
     // Stores the dimensions of the window.
     public int height;
     public int width;
 
+    public long animationTime;
+
+    public int fps;
+
+    public  long frameTime;
+
+    public int frameTimeMilli = 17;
+
     // Unused Code
     URL weapon_selector_URL = GameWindow.class.getResource("/assets/images/window/weapon_selector.png");
     Image weapon_selector;
+
+    SettingsButton settingsButton;
 
     // Creates a new player.
     {
@@ -51,13 +65,26 @@ public class GameWindow extends JComponent{
         height = window.getHeight();
         width = window.getWidth();
         tileManager = new TileManager(this);
-        blob = new Blob(this,0,0,1,0);
+
+        enemyManager = new EnemyManager(this);
+        settingsButton = new SettingsButton(window,this);
+        window.addMouseListener(settingsButton);
+
     }
 
+    public void FPSChecker(){
+        while(System.currentTimeMillis() - this.frameTime < frameTimeMilli){
+
+        }
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
+            frameTime = System.currentTimeMillis();
+            if(animationTime == 0){
+                animationTime = System.currentTimeMillis();
+            }
             // Sets the variables.
             height = window.getHeight();
             width = window.getWidth();
@@ -65,8 +92,8 @@ public class GameWindow extends JComponent{
             // Repaints the player and tiles.
             tileManager.tileRepaint(g,this);
             player.playerRepaint(window,g,this);
-            blob.enemyRepaint(g,this);
-
+            settingsButton.SettingsButtonRepaint(g);
+            enemyManager.enemyRepaint(g,this);
             // Temporary Code
             URL thing = GameWindow.class.getResource("/assets/images/window/Gun Sprite0.png");
             URL thing1 = GameWindow.class.getResource("/assets/images/window/Sword0.png");
@@ -82,10 +109,19 @@ public class GameWindow extends JComponent{
             // Draws the bullet (unused)
             for (int i = 0; i < player.ammunition.size() ; i++) {
                 if(player.ammunition.get(i).fired){
-                    System.out.println("here");
                     player.ammunition.get(i).y -=1;
                     g.drawImage(player.ammunition.get(i).projectile,player.ammunition.get(i).x,player.ammunition.get(i).y,this);
                 }
+            }
+
+            FPSChecker();
+            if(System.currentTimeMillis() - animationTime >= 1000){
+                System.out.println(fps + " fps");
+                fps = 0;
+                animationTime = 0;
+            }
+            else{
+                fps += 1;
             }
 
         }

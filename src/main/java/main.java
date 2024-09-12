@@ -37,7 +37,6 @@ public class main{
             setGameWindow(new GameWindow(window));
 
             while(true){
-
                 mainWindow.repaint();
 
             }

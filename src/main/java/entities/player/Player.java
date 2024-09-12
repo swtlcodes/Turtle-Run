@@ -2,6 +2,8 @@ package main.java.entities.player;
 
 
 // Imported classes
+import main.java.window.GameWindow;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +21,7 @@ public class Player implements KeyListener {
     // Variables for the window and painting.
     JFrame window;
     Graphics graphics;
-    JComponent jComponent;
+    GameWindow jComponent;
 
 
     // Timers
@@ -151,7 +153,7 @@ public class Player implements KeyListener {
         player_sword_walk_3 = ImageIO.read(player_sword_walk_3_URL);
         player_sword_walk_4 = ImageIO.read(player_sword_walk_4_URL);
     }
-    public void playerRepaint(JFrame window, Graphics graphics, JComponent jComponent) throws IOException {
+    public void playerRepaint(JFrame window, Graphics graphics, GameWindow jComponent) throws IOException {
 // Variable stuff.
         this.window = window;
         this.graphics = graphics;
@@ -283,7 +285,6 @@ public class Player implements KeyListener {
             }
         }
 
-
 // Makes the player change its weapon to a gun.
         if(e.getKeyChar() == 'w'){
             gun = true;
@@ -346,6 +347,17 @@ public class Player implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        if(e.getKeyChar() == 'o'){
+            if(jComponent.frameTimeMilli >= 0){
+                jComponent.frameTimeMilli -=1;
+
+            }
+        }
+
+        if(e.getKeyChar() == 'p'){
+            jComponent.frameTimeMilli +=1;
+        }
 
 
 // Makes sure that the velocity is not too high.

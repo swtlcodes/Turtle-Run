@@ -15,6 +15,9 @@ public abstract class Enemy {
 
     public GameWindow gameWindow;
     public Image enemyImage;
+
+    public boolean dead = false;
+
     //gameWindow.player.x >= x && gameWindow.player.x <= x + 64 && gameWindow.player.y >= y && gameWindow.player.y <=y + 64;
 
 

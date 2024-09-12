@@ -1,14 +1,14 @@
-package main.java.window;
+package main.java.window.manager;
+
+import main.java.window.GameWindow;
 
 import javax.imageio.ImageIO;
-import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TileManager {
 
